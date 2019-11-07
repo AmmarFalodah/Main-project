@@ -52,8 +52,21 @@ void PCA9685_soft_reset();
 char LED2VALUE[6];
 char adc_value_text[10];
   // txt is "  437" (two blanks here)
- int step = 600 ;
- int step2 = 580 ;
+
+
+ int step0a = 250 ;
+ int step0b = 150 ;
+ int step2a = 250 ;
+ int step2b = 150 ;
+ int step4a = 250 ;
+ int step4b = 150 ;
+ int step6a = 250 ;
+ int step6b = 150 ;
+ int step8a = 250 ;
+ int step8b = 150 ;
+ int step10a = 250 ;
+ int step10b = 150 ;
+
 void main(){
      unsigned int jx1=0;
      unsigned int jy1=0;
@@ -114,35 +127,178 @@ void main(){
          WordToStr(LED0off_byte, LED2VALUE);
          Lcd_Out(2, 3, LED2VALUE);
 
-             //////--------led0control
-         if ((ADC_Read(1))>step)
+             /////////////////////////**0**////////////////////////////////
+         if ((ADC_Read(0))>step0a)
         {
-            LED0off_byte= LED0off_byte+10;
+            LED0off_byte= LED0off_byte+15;
             
-            step= step+20;
-            step2= step+20;
+            step0a= step0a+30;
+            step0b= step0b+30;
             if ( LED0off_byte> 570)
             {
              LED0off_byte=570;
             }
 
-            while((ADC_Read(1))>step) ;
+            while((ADC_Read(0))>step0a) ;
 
          }
-        if ((ADC_Read(1))<step2)
+        if ((ADC_Read(0))<step0b)
         {
-         LED0off_byte= LED0off_byte-10;
-         step= step-20;
-         step2= step2-20;
-        while((ADC_Read(1))<step2);
+         LED0off_byte= LED0off_byte-15;
+         step0a= step0a-30;
+         step0b= step0b-30;
+        while((ADC_Read(0))<step0b);
 
          }
          if ( LED0off_byte<140 )
          {
           LED0off_byte=140;
          }
+          /////////////////////////**2**////////////////////////////////
+          
+          if ((ADC_Read(1))>step2a)
+        {
+            LED2off_byte= LED2off_byte+15;
 
+            step2a= step2a+30;
+            step2b= step2b+30;
+            if ( LED2off_byte> 570)
+            {
+             LED2off_byte=570;
+            }
 
+            while((ADC_Read(1))>step2a) ;
+
+         }
+        if ((ADC_Read(1))<step2b)
+        {
+         LED2off_byte= LED2off_byte-15;
+         step2a= step2a-30;
+         step2b= step2b-30;
+        while((ADC_Read(1))<step2b);
+
+         }
+         if ( LED2off_byte<140 )
+         {
+          LED2off_byte=140;
+         }
+
+         /////////////////////////**4**////////////////////////////////
+         
+          if ((ADC_Read(2))>step4a)
+        {
+            LED4off_byte= LED4off_byte+15;
+
+            step4a= step4a+30;
+            step4b= step4b+30;
+            if ( LED4off_byte> 570)
+            {
+             LED4off_byte=570;
+            }
+
+            while((ADC_Read(2))>step4a) ;
+
+         }
+        if ((ADC_Read(2))<step4b)
+        {
+         LED4off_byte= LED4off_byte-15;
+         step4a= step4a-30;
+         step4b= step4b-30;
+        while((ADC_Read(2))<step4b);
+
+         }
+         if ( LED4off_byte<140 )
+         {
+          LED4off_byte=140;
+         }
+         
+         /////////////////////////**6**////////////////////////////////
+
+         if ((ADC_Read(3))>step6a)
+        {
+            LED6off_byte= LED6off_byte+15;
+
+            step6a= step6a+30;
+            step6b= step6b+30;
+            if ( LED6off_byte> 570)
+            {
+             LED6off_byte=570;
+            }
+
+            while((ADC_Read(3))>step6a) ;
+
+         }
+        if ((ADC_Read(3))<step6b)
+        {
+         LED6off_byte= LED6off_byte-15;
+         step6a= step6a-30;
+         step6b= step6b-30;
+        while((ADC_Read(3))<step6b);
+
+         }
+         if ( LED6off_byte<140 )
+         {
+          LED6off_byte=140;
+         }
+
+         /////////////////////////**8**////////////////////////////////
+           
+         if ((ADC_Read(4))>step8a)
+        {
+            LED8off_byte= LED8off_byte+15;
+
+            step8a= step8a+30;
+            step8b= step8b+30;
+            if ( LED8off_byte> 570)
+            {
+             LED8off_byte=570;
+            }
+
+            while((ADC_Read(4))>step8a) ;
+
+         }
+        if ((ADC_Read(4))<step8b)
+        {
+         LED8off_byte= LED8off_byte-15;
+         step8a= step8a-30;
+         step8b= step8b-30;
+        while((ADC_Read(4))<step8b);
+
+         }
+         if ( LED8off_byte<140 )
+         {
+          LED8off_byte=140;
+         }
+           
+         /////////////////////////**10**////////////////////////////////
+           
+         if ((ADC_Read(5))>step10a)
+        {
+            LED10off_byte= LED10off_byte+15;
+
+            step10a= step10a+30;
+            step10b= step10b+30;
+            if ( LED10off_byte> 570)
+            {
+             LED10off_byte=570;
+            }
+
+            while((ADC_Read(5))>step10a) ;
+
+         }
+        if ((ADC_Read(5))<step10b)
+        {
+         LED10off_byte= LED10off_byte-15;
+         step10a= step10a-30;
+         step10b= step10b-30;
+        while((ADC_Read(5))<step10b);
+
+         }
+         if ( LED10off_byte<140 )
+         {
+          LED10off_byte=140;
+         }
+           
            ///////////////////LED0/////////////////////////////////
         PCA9685_Write_word(6,0x0000);// turn on at time 0
         PCA9685_Write_word(8,LED0off_byte);// turn off at time 409 0r 0x0199
